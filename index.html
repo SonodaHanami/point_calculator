@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Point Calculator</title>
+</head>
+<body>
+<h1>Point Calculator</h1>
+<h3>这是一个可以用于各种游戏控分的计算器（有累计分数排行榜的地方就有控分！）</h3>
+<div>
+<p>使用方法：</p>
+<p>在target处填入<b>当前分数与目标分数间的分数差</b>，例如：114514</p>
+<p>在coins处填入分数选项，以空格分隔，例如：114 514</p>
+<p>（为什么是coins？因为这就是“硬币问题”）</p>
+<p>然后点击计算</p>
+
+<p>target: <input type="text" id="target" placeholder="分数差"></p>
+<p>coins: <input type="text" id="coins" placeholder="分数选项"></p>
+<input type="submit" value="计算" onclick="solve();">
+</div>
+<br>
+
+<div id="result">计算结果将在这里显示</div>
+
+<script>
+function solve(){
+    var t0 = new Date();
+    var target = parseInt(document.getElementById('target').value, 10);
+    if((target <= 0) || !(Math.floor(target) === target)){
+        document.getElementById('result').innerHTML = '唔得，' + target + '不是正整数';
+        return;
+    }
+    var coins = document.getElementById('coins').value.split(' ').map(x=>+x);
+    for(var coin of coins){
+        if((coin <= 0) || !(Math.floor(coin) === coin)){
+            document.getElementById('result').innerHTML = '唔得，' + coin + '不是正整数';
+            return;
+        }
+    }
+    var result = {};
+    var tosend = [];
+    var plans = new Array(target + 1);
+    plans[0] = [target + 1, 0];
+    for(var i = 1; i <= target; i++){
+        plans[i] = [0, 0];
+    }
+    for(var i = 1; i <= target; i++){
+        if(coins.includes(i)){
+            plans[i] = [1, i];
+        }
+        else{
+            var min_count = target + 1;
+            var min_prev_target = 0;
+            for(var coin of coins){
+                if(i >= coin){
+                    var new_count = plans[i - coin][0] + 1;
+                    if(new_count < min_count){
+                        min_count = new_count;
+                        min_prev_target = coin;
+                    }
+                }
+            }
+            plans[i] = [min_count, min_prev_target];
+        }
+    }
+    if(plans[target][0] > target){
+        tosend.push();
+        document.getElementById('result').innerHTML = [
+            'target: ' + target + '<br>' + 'coins: ' + coins,
+            '算不出来，damedane~',
+            '计算耗时' + (new Date() - t0) + 'ms'
+        ].join('<br>');
+    }
+    else{
+        var remaining = target;
+        while(remaining > 0){
+            coin = plans[remaining][1];
+            if(coin in result){
+                result[coin] += 1;
+            }
+            else{
+                result[coin] = 1;
+            }
+            remaining -= coin;
+        }
+        for(k in result){
+                tosend.push(k + ' * ' + result[k]);
+            }
+        document.getElementById('result').innerHTML = [
+            'target: ' + target + '<br>' + 'coins: ' + coins,
+            target + '最少可由以下' + plans[target][0] + '项相加得到：',
+            target + ' = ' + tosend.join(' + '),
+            '计算耗时' + (new Date() - t0) + 'ms'
+        ].join('<br>');
+    }
+}
+</script>
+</body>
+</html>
