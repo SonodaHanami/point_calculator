@@ -21,6 +21,13 @@
 </div>
 <br>
 
+<div>
+<p>一些可能能用得上的分数选项：</p>
+<p>SIF SM: <span id="c1">119 59 34 14</span> <input type="submit" value="使用" onclick="paste(c1);"></p>
+<p>SIF 协力: <span id="c2">100 51 29 13</span> <input type="submit" value="使用" onclick="paste(c2);"></p>
+<p>LLAS: <span id="c3">672 660 612 600 453 445 413 405</span> <input type="submit" value="使用" onclick="paste(c3);"></p>
+</div>
+
 <div id="result">
 <p>计算结果将在这里显示</p>
 <p>所有计算过程都在浏览器本地运行，请量力而行</p>
@@ -103,6 +110,10 @@ function solve(){
             '计算耗时' + (new Date() - t0) + 'ms'
         ].join('<br>');
     }
+}
+
+function paste(c){
+    document.getElementById('coins').value = c.innerHTML;
 }
 </script>
 </body>
