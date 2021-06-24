@@ -8,7 +8,9 @@
 <h3>这是一个可以用于各种游戏控分的计算器（有累计分数排行榜的地方就有控分！）</h3>
 <div>
 <p>使用方法：</p>
-<p>在target处填入<b>当前分数与目标分数间的分数差</b>，例如：114514</p>
+<p>在target处填入（二选一）：</p>
+<p>①<b>当前分数与目标分数间的分数差</b>，例如：114514</p>
+<p>②<b>目标分数-当前分数</b>，例如：114514-100000</p>
 <p>在coins处填入分数选项，以空格分隔，例如：114 514</p>
 <p>（为什么是coins？因为这就是“硬币问题”）</p>
 <p>然后点击计算</p>
@@ -19,12 +21,21 @@
 </div>
 <br>
 
-<div id="result">计算结果将在这里显示</div>
+<div id="result">
+<p>计算结果将在这里显示</p>
+<p>所有计算过程都在浏览器本地运行，请量力而行</p>
+</div>
 
 <script>
 function solve(){
     var t0 = new Date();
-    var target = parseInt(document.getElementById('target').value, 10);
+    var target = 0;
+    var reg = /^(\d)+-(\d+)$/
+    if(reg.test(document.getElementById('target').value)){
+        target = eval(document.getElementById('target').value);
+    }else{
+        target = parseInt(document.getElementById('target').value, 10);
+    }
     if((target <= 0) || !(Math.floor(target) === target)){
         document.getElementById('result').innerHTML = '唔得，' + target + '不是正整数';
         return;
