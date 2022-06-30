@@ -5,14 +5,24 @@
     <title>Point Calculator</title>
     <style>
         .target {
-            color: #0000ff
+            color: #0000ff;
         }
+
         .coin {
-            color: #114514
+            color: #114514;
         }
 
         .count {
-            color: #ee5511
+            color: #ee5511;
+        }
+
+        .input{
+            height:30px;
+        }
+
+        .solveButton {
+            width: 100%;
+            height: 40px;
         }
     </style>
 </head>
@@ -85,18 +95,18 @@
         <table border="0" cellspacing="2" cellpadding="2">
             <tr>
                 <td>target: </td>
-                <td><input type="text" id="target" placeholder="目标"></td>
+                <td><input type="text" class="input" id="target" placeholder="目标"></td>
             </tr>
             <tr>
                 <td>current: </td>
-                <td><input type="text" id="current" placeholder="当前" value="0"></td>
+                <td><input type="text" class="input" id="current" placeholder="当前" value="0"></td>
             </tr>
             <tr>
                 <td>coins: </td>
-                <td><input type="text" id="coins" placeholder="分数选项"></td>
+                <td><input type="text" class="input" id="coins" placeholder="分数选项"></td>
             </tr>
             <tr>
-                <td><input type="submit" value="计算" onclick="solve();"></td>
+                <td colspan="2"><input type="submit" class="solveButton" value="计算" onclick="solve();"></td>
             </tr>
         </table>
     </div>
