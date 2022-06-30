@@ -22,6 +22,7 @@
     <h3>这是一个可以用于各种游戏控分的计算器</h3>
     <h4>（有累计分数排行榜的地方就有控分！）</h4>
     <div>
+        点个Star吧！
         <iframe
             src="https://ghbtns.com/github-btn.html?user=SonodaHanami&repo=point_calculator&type=star&count=true&size=large"
             frameborder="0" scrolling="0" width="170" height="30" title="GitHub">
@@ -176,7 +177,8 @@
                     );
                 }
                 document.getElementById('result').innerHTML = [
-                    'target: ' + target + '<br>' + 'coins: ' + coins,
+                    'target: ' + target,
+                    'coins: ' + coins.join(', '),
                     target + ' 最少可由以下 ' + plans[target][0] + ' 项相加得到：',
                     '<h3><span class="target">' + target + '</span> = ' + tosend.join(' + ') + '</h3>',
                     '计算耗时 ' + (new Date() - t0) + 'ms'
