@@ -3,6 +3,18 @@
 
 <head>
     <title>Point Calculator</title>
+    <style>
+        .target {
+            color: #0000ff
+        }
+        .coin {
+            color: #114514
+        }
+
+        .count {
+            color: #ee5511
+        }
+    </style>
 </head>
 
 <body>
@@ -153,13 +165,15 @@
                     remaining -= coin;
                 }
                 for (k in result) {
-                    tosend.push(k + ' * ' + result[k]);
+                    tosend.push(
+                        '<span class="coin">' + k + '</span> * <span class="count">' + result[k] + '</span>'
+                    );
                 }
                 document.getElementById('result').innerHTML = [
                     'target: ' + target + '<br>' + 'coins: ' + coins,
-                    target + '最少可由以下' + plans[target][0] + '项相加得到：',
-                    target + ' = ' + tosend.join(' + '),
-                    '计算耗时' + (new Date() - t0) + 'ms'
+                    target + ' 最少可由以下 ' + plans[target][0] + ' 项相加得到：',
+                    '<h3><span class="target">' + target + '</span> = ' + tosend.join(' + ') + '</h3>',
+                    '计算耗时 ' + (new Date() - t0) + 'ms'
                 ].join('<br>');
             }
         }
