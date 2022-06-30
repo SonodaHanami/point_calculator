@@ -200,6 +200,15 @@
                 document.getElementById(text).innerHTML="展开";
             }
         }
+
+        const inputIds = ['target', 'current', 'coins']
+        for(i in inputIds) {
+            document.getElementById(inputIds[i]).onkeyup = function(event) {
+                if(event.which == 13) {
+                    solve();
+                }
+            }
+        }
     </script>
 </body>
 
