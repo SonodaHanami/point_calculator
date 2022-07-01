@@ -120,23 +120,47 @@
     <script>
         function solve() {
             var t0 = new Date();
-            var target, current;
-            target = parseInt(document.getElementById('target').value, 10);
-            current = parseInt(document.getElementById('current').value, 10);
-            target -= current;
-            if ((target <= 0) || !(Math.floor(target) === target)) {
-                document.getElementById('result').innerHTML = '唔得，' + target + '不是正整数';
+            // 检查输入
+            var target, current, coins;
+            target = document.getElementById('target');
+            current = document.getElementById('current');
+            coins = document.getElementById('coins');
+            if (target.value) {
+                target = parseInt(target.value, 10);
+            }
+            else {
+                document.getElementById('result').innerHTML = '请输入target';
                 return;
             }
-            var coins = document.getElementById('coins').value.split(' ').map(x => +x);
+            if (current.value) {
+                current = parseInt(document.getElementById('current').value, 10);
+            }
+            else {
+                document.getElementById('result').innerHTML = '请输入current';
+                return;
+            }
+            offset = target - current;
+            if ((offset <= 0) || !(Math.floor(offset) === offset)) {
+                document.getElementById('result').innerHTML = `唔得，target - current = ${offset} 不是正整数`;
+                return;
+            }
+            target = offset;
+            if (coins.value) {
+                coins = coins.value.trim().split(' ').map(x => +x);
+            }
+            else {
+                document.getElementById('result').innerHTML = '请输入coins';
+                return;
+            }
             for (var coin of coins) {
                 if ((coin <= 0) || !(Math.floor(coin) === coin)) {
-                    document.getElementById('result').innerHTML = '唔得，' + coin + '不是正整数';
+                    document.getElementById('result').innerHTML = `唔得，coins中 ${coin} 不是正整数`;
                     return;
                 }
             }
+            // 计算
             var result = {};
-            var tosend = [];
+            var resultItems = [];
             var plans = new Array(target + 1);
             plans[0] = [target + 1, 0];
             for (var i = 1; i <= target; i++) {
@@ -161,10 +185,11 @@
                     plans[i] = [min_count, min_prev_target];
                 }
             }
+            // 输出结果
             if (plans[target][0] > target) {
-                tosend.push();
                 document.getElementById('result').innerHTML = [
-                    'target: ' + target + '<br>' + 'coins: ' + coins,
+                    'target: ' + target,
+                    'coins: ' + coins,
                     '算不出来，damedane~',
                     '计算耗时' + (new Date() - t0) + 'ms'
                 ].join('<br>');
@@ -181,8 +206,8 @@
                     }
                     remaining -= coin;
                 }
-                for (k in result) {
-                    tosend.push(
+                for (var k in result) {
+                    resultItems.push(
                         '<span class="coin">' + k + '</span> * <span class="count">' + result[k] + '</span>'
                     );
                 }
@@ -190,7 +215,7 @@
                     'target: ' + target,
                     'coins: ' + coins.join(', '),
                     target + ' 最少可由以下 ' + plans[target][0] + ' 项相加得到：',
-                    '<h3><span class="target">' + target + '</span> = ' + tosend.join(' + ') + '</h3>',
+                    '<h3><span class="target">' + target + '</span> = ' + resultItems.join(' + ') + '</h3>',
                     '计算耗时 ' + (new Date() - t0) + 'ms'
                 ].join('<br>');
             }
@@ -212,7 +237,7 @@
         }
 
         const inputIds = ['target', 'current', 'coins']
-        for(i in inputIds) {
+        for(var i in inputIds) {
             document.getElementById(inputIds[i]).onkeyup = function(event) {
                 if(event.which == 13) {
                     solve();
