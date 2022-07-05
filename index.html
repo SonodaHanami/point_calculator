@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Point Calculator</title>
+    <title>控分计算器</title>
     <style>
         .target {
             color: #0000ff;
@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <h1>Point Calculator</h1>
+    <h1>控分计算器</h1>
     <h3>这是一个可以用于各种游戏控分的计算器</h3>
     <h4>（有累计分数排行榜的地方就有控分！）</h4>
     <div>
@@ -45,11 +45,12 @@
             </a>
         </p>
         <div id="usage" style="display:none">
-            <p>在 target 处填入 <span><b>目标分数</b></span></p>
-            <p>在 current 处填入 <span><b>当前分数</b></span></p>
-            <p>在 coins 处填入分数选项，以空格分隔，例如：114 514</p>
-            <p>（为什么是coins？因为这就是“硬币问题”）</p>
-            <p>然后点击 <span><b>计算</b></span></p>
+            <p>1. 输入 <span><b>目标分数</b></span> ，</p>
+            <p>2. 输入 <span><b>当前分数</b></span> ，</p>
+            <p>3. 输入 <span><b>分数选项</b></span> ，以空格分隔，例如：114 514</p>
+            <!-- <p>（为什么是coins？因为这就是“硬币问题”）</p> -->
+            <p>4. 点击 <span><b>计算</b></span></p>
+            <p>点击计算结果中的分数选项可以对应增加当前分数</p>
         </div>
         <p>
             <a href="javascript:void(0);" onclick="handleSwitch('default', 'defaultSwitch')">
@@ -57,22 +58,26 @@
             </a>
         </p>
         <div id="default" style="display:none">
-            <table border="1"  cellspacing="2" cellpadding="2">
+            <table border="1"  cellspacing="2" cellpadding="8">
                 <tr>
-                    <td rowspan="3">target</td>
-                    <td id="t1">5200912</td>
+                    <td rowspan="4">目标分数</td>
+                    <td id="t1">11020301</td>
                     <td><input type="submit" value="使用" onclick="paste('target', t1);"></td>
                 </tr>
                 <tr>
-                    <td id="t2">2701314</td>
+                    <td id="t2">5200301</td>
                     <td><input type="submit" value="使用" onclick="paste('target', t2);"></td>
                 </tr>
                 <tr>
-                    <td id="t3">1314912</td>
+                    <td id="t3">1314301</td>
                     <td><input type="submit" value="使用" onclick="paste('target', t3);"></td>
                 </tr>
                 <tr>
-                    <td rowspan="3">coins</td>
+                    <td id="t4">520301</td>
+                    <td><input type="submit" value="使用" onclick="paste('target', t4);"></td>
+                </tr>
+                <tr>
+                    <td rowspan="3">分数选项</td>
                     <td>SIF SM: <span id="c1">119 59 34 14</span></td>
                     <td><input type="submit" value="使用" onclick="paste('coins', c1);"></td>
                 </tr>
@@ -92,17 +97,17 @@
             </p>
         </div>
         <hr />
-        <table border="0" cellspacing="2" cellpadding="2">
+        <table border="0" cellspacing="2" cellpadding="8">
             <tr>
-                <td>target: </td>
-                <td><input type="text" class="input" id="target" placeholder="目标"></td>
+                <td>目标分数： </td>
+                <td><input type="number" class="input" id="target" placeholder="目标分数"></td>
             </tr>
             <tr>
-                <td>current: </td>
-                <td><input type="text" class="input" id="current" placeholder="当前" value="0"></td>
+                <td>当前分数： </td>
+                <td><input type="number" class="input" id="current" placeholder="当前分数" value="0"></td>
             </tr>
             <tr>
-                <td>coins: </td>
+                <td>分数选项： </td>
                 <td><input type="text" class="input" id="coins" placeholder="分数选项"></td>
             </tr>
             <tr>
@@ -129,19 +134,19 @@
                 target = parseInt(target.value, 10);
             }
             else {
-                document.getElementById('result').innerHTML = '请输入target';
+                document.getElementById('result').innerHTML = '请输入目标分数';
                 return;
             }
             if (current.value) {
                 current = parseInt(document.getElementById('current').value, 10);
             }
             else {
-                document.getElementById('result').innerHTML = '请输入current';
+                document.getElementById('result').innerHTML = '请输入当前分数';
                 return;
             }
             offset = target - current;
             if ((offset <= 0) || !(Math.floor(offset) === offset)) {
-                document.getElementById('result').innerHTML = `唔得，target - current = ${offset} 不是正整数`;
+                document.getElementById('result').innerHTML = `唔得，目标分数 - 当前分数 = ${offset} 不是正整数`;
                 return;
             }
             target = offset;
@@ -149,12 +154,12 @@
                 coins = coins.value.trim().split(' ').map(x => +x);
             }
             else {
-                document.getElementById('result').innerHTML = '请输入coins';
+                document.getElementById('result').innerHTML = '请输入分数选项';
                 return;
             }
             for (var coin of coins) {
                 if ((coin <= 0) || !(Math.floor(coin) === coin)) {
-                    document.getElementById('result').innerHTML = `唔得，coins中 ${coin} 不是正整数`;
+                    document.getElementById('result').innerHTML = `唔得，分数选项中 ${coin} 不是正整数`;
                     return;
                 }
             }
@@ -188,8 +193,8 @@
             // 输出结果
             if (plans[target][0] > target) {
                 document.getElementById('result').innerHTML = [
-                    'target: ' + target,
-                    'coins: ' + coins,
+                    '分数差： ' + target,
+                    '分数选项： ' + coins,
                     '算不出来，damedane~',
                     '计算耗时' + (new Date() - t0) + 'ms'
                 ].join('<br>');
@@ -208,14 +213,14 @@
                 }
                 for (var k in result) {
                     resultItems.push(
-                        '<span class="coin">' + k + '</span> * <span class="count">' + result[k] + '</span>'
+                        `<span onclick="charge(${k});"><span class="coin" id="coin${k}">${k}</span> * <span class="count" id="count${k}">${result[k]}</span></span>`
                     );
                 }
                 document.getElementById('result').innerHTML = [
-                    'target: ' + target,
-                    'coins: ' + coins.join(', '),
-                    target + ' 最少可由以下 ' + plans[target][0] + ' 项相加得到：',
-                    '<h3><span class="target">' + target + '</span> = ' + resultItems.join(' + ') + '</h3>',
+                    '分数差： <span id="resultTarget0">' + target + '</span>',
+                    '分数选项： ' + coins.join(', '),
+                    `<span id="resultTarget1">${target}</span> 最少可由以下 <span id="resultCount">${plans[target][0]}</span> 项相加得到：`,
+                    '<h3><span class="target" id="resultTarget2">' + target + '</span> = ' + resultItems.join(' + ') + '</h3>',
                     '计算耗时 ' + (new Date() - t0) + 'ms'
                 ].join('<br>');
             }
@@ -234,6 +239,19 @@
                 document.getElementById(table).style.display="none";
                 document.getElementById(text).innerHTML="展开";
             }
+        }
+
+        function charge(idx) {
+            if (parseInt(document.getElementById(`count${idx}`).innerHTML, 10) <= 0) {
+                return
+            }
+            const coinValue = parseInt(document.getElementById(`coin${idx}`).innerHTML, 10);
+            document.getElementById("current").value = parseInt(document.getElementById("current").value, 10) + coinValue;
+            document.getElementById("resultTarget0").innerHTML -= coinValue;
+            document.getElementById("resultCount").innerHTML--;
+            document.getElementById("resultTarget1").innerHTML -= coinValue;
+            document.getElementById(`count${idx}`).innerHTML--;
+            document.getElementById("resultTarget2").innerHTML -= coinValue;
         }
 
         const inputIds = ['target', 'current', 'coins']
