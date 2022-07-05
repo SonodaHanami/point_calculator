@@ -194,7 +194,7 @@
             if (plans[target][0] > target) {
                 document.getElementById('result').innerHTML = [
                     '分数差： ' + target,
-                    '分数选项： ' + coins,
+                    '分数选项： ' + coins.join(', '),
                     '算不出来，damedane~',
                     '计算耗时' + (new Date() - t0) + 'ms'
                 ].join('<br>');
@@ -211,6 +211,8 @@
                     }
                     remaining -= coin;
                 }
+                // 安全线
+                for (var safeLine = target; plans[safeLine - 1][1] > 0; safeLine--);
                 for (var k in result) {
                     resultItems.push(
                         `<span onclick="charge(${k});"><span class="coin" id="coin${k}">${k}</span> * <span class="count" id="count${k}">${result[k]}</span></span>`
@@ -221,6 +223,7 @@
                     '分数选项： ' + coins.join(', '),
                     `<span id="resultTarget1">${target}</span> 最少可由以下 <span id="resultCount">${plans[target][0]}</span> 项相加得到：`,
                     '<h3><span class="target" id="resultTarget2">' + target + '</span> = ' + resultItems.join(' + ') + '</h3>',
+                    `安全线提醒：在当前分数选项组合 (${coins.join(', ')}) 条件下，分数差在 [<b>${safeLine}</b>, ${target}] 范围内必定有解`,
                     '计算耗时 ' + (new Date() - t0) + 'ms'
                 ].join('<br>');
             }
