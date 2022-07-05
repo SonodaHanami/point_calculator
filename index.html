@@ -3,6 +3,14 @@
 
 <head>
     <title>控分计算器</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QGM58QCD7C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-QGM58QCD7C');
+    </script>
     <style>
         .target {
             color: #0000ff;
@@ -16,8 +24,8 @@
             color: #ee5511;
         }
 
-        .input{
-            height:30px;
+        .input {
+            height: 30px;
         }
 
         .solveButton {
@@ -58,7 +66,7 @@
             </a>
         </p>
         <div id="default" style="display:none">
-            <table border="1"  cellspacing="2" cellpadding="8">
+            <table border="1" cellspacing="2" cellpadding="8">
                 <tr>
                     <td rowspan="4">目标分数</td>
                     <td id="t1">11020301</td>
@@ -233,14 +241,14 @@
             document.getElementById(target).value = valueSource.innerHTML;
         }
 
-        function handleSwitch(table, text){
-            if (document.getElementById(table).style.display == "none"){
-                document.getElementById(table).style.display="";
-                document.getElementById(text).innerHTML="收起";
+        function handleSwitch(table, text) {
+            if (document.getElementById(table).style.display == "none") {
+                document.getElementById(table).style.display = "";
+                document.getElementById(text).innerHTML = "收起";
             }
             else {
-                document.getElementById(table).style.display="none";
-                document.getElementById(text).innerHTML="展开";
+                document.getElementById(table).style.display = "none";
+                document.getElementById(text).innerHTML = "展开";
             }
         }
 
@@ -258,9 +266,9 @@
         }
 
         const inputIds = ['target', 'current', 'coins']
-        for(var i in inputIds) {
-            document.getElementById(inputIds[i]).onkeyup = function(event) {
-                if(event.which == 13) {
+        for (var i in inputIds) {
+            document.getElementById(inputIds[i]).onkeyup = function (event) {
+                if (event.which == 13) {
                     solve();
                 }
             }
