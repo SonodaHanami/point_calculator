@@ -70,32 +70,32 @@
                 <tr>
                     <td rowspan="4">目标分数</td>
                     <td id="t1">11020301</td>
-                    <td><input type="submit" value="使用" onclick="paste('target', t1);"></td>
+                    <td><input type="submit" value="使用" onclick="paste('target', 't1');"></td>
                 </tr>
                 <tr>
                     <td id="t2">5200301</td>
-                    <td><input type="submit" value="使用" onclick="paste('target', t2);"></td>
+                    <td><input type="submit" value="使用" onclick="paste('target', 't2');"></td>
                 </tr>
                 <tr>
                     <td id="t3">1314301</td>
-                    <td><input type="submit" value="使用" onclick="paste('target', t3);"></td>
+                    <td><input type="submit" value="使用" onclick="paste('target', 't3');"></td>
                 </tr>
                 <tr>
                     <td id="t4">520301</td>
-                    <td><input type="submit" value="使用" onclick="paste('target', t4);"></td>
+                    <td><input type="submit" value="使用" onclick="paste('target', 't4');"></td>
                 </tr>
                 <tr>
                     <td rowspan="3">分数选项</td>
                     <td>SIF SM: <span id="c1">119 59 34 14</span></td>
-                    <td><input type="submit" value="使用" onclick="paste('coins', c1);"></td>
+                    <td><input type="submit" value="使用" onclick="paste('coins', 'c1');"></td>
                 </tr>
                 <tr>
                     <td>SIF 协力: <span id="c2">100 51 29 13</span></td>
-                    <td><input type="submit" value="使用" onclick="paste('coins', c2);"></td>
+                    <td><input type="submit" value="使用" onclick="paste('coins', 'c2');"></td>
                 </tr>
                 <tr>
                     <td>LLAS: <span id="c3">875 600</span></td>
-                    <td><input type="submit" value="使用" onclick="paste('coins', c3);"></td>
+                    <td><input type="submit" value="使用" onclick="paste('coins', 'c3');"></td>
                 </tr>
             </table>
             <p>还是看看远方的<b>LoveLive! AS Wiki</b>吧！
@@ -238,7 +238,7 @@
         }
 
         function paste(target, valueSource) {
-            document.getElementById(target).value = valueSource.innerHTML;
+            document.getElementById(target).value = document.getElementById(valueSource).innerHTML;
         }
 
         function handleSwitch(table, text) {
