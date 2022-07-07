@@ -276,6 +276,12 @@
             </table>
             <p>当前加成： <span id="currentBonuses"></span></p>
             <p>生成分数选项： <span id="generated"></span></p>
+            <p>
+                <a href="javascript:void(0);" onclick="handleSwitch('generatedMap', 'generatedMapSwitch')">
+                    点击<span id="generatedMapSwitch">展开</span>生成分数选项对应表
+                </a>
+            </p>
+            <div id="generatedMap" style="display:none"></div>
             <p><input type="submit" value="使用" onclick="paste('coins', 'generated');"></p>
             <p>还是看看远方的 <b>LoveLive! AS Wiki</b> 吧！
                 <a href="https://wiki.loveliv.es/%E6%B4%BB%E5%8A%A8pt%E9%80%9F%E6%9F%A5%E8%A1%A8" target="_blank">
@@ -519,10 +525,11 @@
 
         function generateCoins(index) {
             var i, l, r, b, bl, has;
-            var result = [], bonus = [], bonusPicked = [], bonusCombined = [];
+            var bonus = [], bonusPicked = [], bonusCombined = [];
+            var generated = [], generatedMap = [];
             // push bonus
             if (document.getElementById('noBonus').checked) {
-                bonus.push(0)
+                bonus.push(0);
             }
             for (b in llasEventBonuses) {
                 has = `has${b.substr(0, 1).toUpperCase()}${b.substr(1)}`
@@ -537,22 +544,31 @@
             }
             if (!bonus.length) bonus.push(0);
             for (i = 1; i <= bonus.length; i++) {
-                combineBonus(bonus, 0, bonusPicked, i, i, bonus.length, bonusCombined)
+                combineBonus(bonus, 0, bonusPicked, i, i, bonus.length, bonusCombined);
             }
-            bonus = Object.assign([], Array.from(new Set(Object.assign(bonus, bonusCombined))))
-            bonus.sort((a, b) => {return a - b})
+            bonus = Object.assign([], Array.from(new Set(Object.assign(bonus, bonusCombined))));
+            bonus.sort((a, b) => {return a - b});
             document.getElementById('currentBonuses').innerHTML = bonus.join(' ');
             for (r of rank) {
                 for (l of lp) {
                     if (document.getElementById(`${r}_${l}`).checked) {
                         for (b in bonus) {
-                            result.push(Math.floor(llasEventMultiplier[r][l] * l * (1 + bonus[b] / 100)));
+                            coin = Math.floor(llasEventMultiplier[r][l] * l * (1 + bonus[b] / 100));
+                            generated.push(coin);
+                            generatedMap.push([coin, r, l, bonus[b]]);
                         }
                     }
                 }
             }
-            result.sort((a, b) => {return b - a})
-            document.getElementById('generated').innerHTML = result.join(' ')
+            generated.sort((a, b) => {return b - a});
+            generatedMap.sort((a, b) => {return b[0] - a[0]});
+            document.getElementById('generated').innerHTML = generated.join(' ');
+            document.getElementById('generatedMap').innerHTML = [
+                '<table border="1"  cellspacing="2" cellpadding="2">',
+                '<thead><tr><th>点数</th><th>评价</th><th>LP</th><th>加成</th></tr></thead>',
+                generatedMap.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}%</td></tr>`).join(''),
+                '</table>',
+            ].join('');
         }
 
         function handleCoinsGenerator(obj) {
