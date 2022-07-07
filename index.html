@@ -12,6 +12,10 @@
         gtag('config', 'G-QGM58QCD7C');
     </script>
     <style>
+        .lineTd {
+            background: #fff url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCUiIHkyPSIxMDAlIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=) no-repeat 100% center;
+        }
+
         .target {
             color: #0000ff;
         }
@@ -98,6 +102,79 @@
                     <td><input type="submit" value="使用" onclick="paste('coins', 'c3');"></td>
                 </tr>
             </table>
+            <!-- Coins Generator -->
+            <p>LLAS 活动点数生成器</p>
+            <p>
+                <input type="submit" value="全选" onclick="handleCoinsGenerator(true);">
+                <input type="submit" value="清空" onclick="handleCoinsGenerator(false);">
+            </p>
+            <table id="coinsGenerator" border="1" cellspacing="2" cellpadding="5" style="text-align:center;" onclick="generateCoins();">
+                <tr>
+                    <td class="lineTd">
+                        <span style="float:left; margin-top:20px">分数评价</span>
+                        <span style="float:right; margin-top:-5px">消耗LP</span>
+                    </td>
+                    <td><input type="submit" value="9" onclick="handleCoinsGenerator(9);"></td>
+                    <td><input type="submit" value="10" onclick="handleCoinsGenerator(10);"></td>
+                    <td><input type="submit" value="12" onclick="handleCoinsGenerator(12);"></td>
+                    <td><input type="submit" value="13" onclick="handleCoinsGenerator(13);"></td>
+                    <td><input type="submit" value="15" onclick="handleCoinsGenerator(15);"></td>
+                    <td><input type="submit" value="16" onclick="handleCoinsGenerator(16);"></td>
+                    <td><input type="submit" value="20" onclick="handleCoinsGenerator(20);"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="S" onclick="handleCoinsGenerator('S');"></td>
+                    <td><input type="checkbox" id="S_9"></td>
+                    <td><input type="checkbox" id="S_10"></td>
+                    <td><input type="checkbox" id="S_12"></td>
+                    <td><input type="checkbox" id="S_13"></td>
+                    <td><input type="checkbox" id="S_15"></td>
+                    <td><input type="checkbox" id="S_16"></td>
+                    <td><input type="checkbox" id="S_20"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="A" onclick="handleCoinsGenerator('A');"></td>
+                    <td><input type="checkbox" id="A_9"></td>
+                    <td><input type="checkbox" id="A_10"></td>
+                    <td><input type="checkbox" id="A_12"></td>
+                    <td><input type="checkbox" id="A_13"></td>
+                    <td><input type="checkbox" id="A_15"></td>
+                    <td><input type="checkbox" id="A_16"></td>
+                    <td><input type="checkbox" id="A_20"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="B" onclick="handleCoinsGenerator('B');"></td>
+                    <td><input type="checkbox" id="B_9"></td>
+                    <td><input type="checkbox" id="B_10"></td>
+                    <td><input type="checkbox" id="B_12"></td>
+                    <td><input type="checkbox" id="B_13"></td>
+                    <td><input type="checkbox" id="B_15"></td>
+                    <td><input type="checkbox" id="B_16"></td>
+                    <td><input type="checkbox" id="B_20"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="C" onclick="handleCoinsGenerator('C');"></td>
+                    <td><input type="checkbox" id="C_9"></td>
+                    <td><input type="checkbox" id="C_10"></td>
+                    <td><input type="checkbox" id="C_12"></td>
+                    <td><input type="checkbox" id="C_13"></td>
+                    <td><input type="checkbox" id="C_15"></td>
+                    <td><input type="checkbox" id="C_16"></td>
+                    <td><input type="checkbox" id="C_20"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="D" onclick="handleCoinsGenerator('D');"></td>
+                    <td><input type="checkbox" id="D_9"></td>
+                    <td><input type="checkbox" id="D_10"></td>
+                    <td><input type="checkbox" id="D_12"></td>
+                    <td><input type="checkbox" id="D_13"></td>
+                    <td><input type="checkbox" id="D_15"></td>
+                    <td><input type="checkbox" id="D_16"></td>
+                    <td><input type="checkbox" id="D_20"></td>
+                </tr>
+            </table>
+            <p>生成分数选项： <span id="G1"></span></p>
+            <p><input type="submit" value="使用" onclick="paste('coins', 'G1');"></p>
             <p>还是看看远方的<b>LoveLive! AS Wiki</b>吧！
                 <a href="https://wiki.loveliv.es/%E6%B4%BB%E5%8A%A8pt%E9%80%9F%E6%9F%A5%E8%A1%A8" target="_blank">
                     https://wiki.loveliv.es/活动pt速查表
@@ -131,6 +208,56 @@
     </div>
 
     <script>
+        const rank = ['S', 'A', 'B', 'C', 'D'];
+        const lp = [9, 10, 12, 13, 15, 16, 20];
+        const llasEventMultiplier = {
+            'S': {
+                9:  27.5,
+                10: 27.5,
+                12: 33.75,
+                13: 33.75,
+                15: 40,
+                16: 40,
+                20: 43.75,
+            },
+            'A': {
+                9:  26.25,
+                10: 26.25,
+                12: 32.5,
+                13: 32.5,
+                15: 38.75,
+                16: 38.75,
+                20: 43,
+            },
+            'B': {
+                9:  25,
+                10: 25,
+                12: 31.25,
+                13: 31.25,
+                15: 37.5,
+                16: 37.5,
+                20: 42.25,
+            },
+            'C': {
+                9:  23.75,
+                10: 23.75,
+                12: 30,
+                13: 30,
+                15: 36.25,
+                16: 36.25,
+                20: 41.5,
+            },
+            'D': {
+                9:  22.5,
+                10: 22.5,
+                12: 28.75,
+                13: 28.75,
+                15: 35,
+                16: 35,
+                20: 40.75,
+            }
+        }
+
         function solve() {
             var t0 = new Date();
             // 检查输入
@@ -265,6 +392,59 @@
             document.getElementById("resultTarget2").innerHTML -= coinValue;
         }
 
+        function generateCoins() {
+            var l, r, result = [], bonus = [];
+            // push bonus
+            if (!bonus.length) bonus.push(0);
+            for (r in rank) {
+                for (l in lp) {
+                    if (document.getElementById(`${rank[r]}_${lp[l]}`).checked) {
+                        for (b in bonus) {
+                            result.push(Math.floor(llasEventMultiplier[rank[r]][lp[l]] * lp[l] * (1 + bonus[b] / 100)));
+                        }
+                    }
+                }
+            }
+            result.sort((a, b) => {return b - a})
+            document.getElementById('G1').innerHTML = result.join(' ')
+        }
+
+        function handleCoinsGenerator(obj) {
+            var l, r, allChecked;
+            if ( obj === true || obj === false) {
+                for (r in rank) {
+                    for (l in lp) {
+                        document.getElementById(`${rank[r]}_${lp[l]}`).checked = obj;
+                    }
+                }
+                generateCoins();
+            }
+            else if (lp.includes(obj)) {
+                allChecked = true;
+                for (r in rank) {
+                    if (!document.getElementById(`${rank[r]}_${obj}`).checked) {
+                        allChecked = false;
+                    }
+                }
+                for (r in rank) {
+                    document.getElementById(`${rank[r]}_${obj}`).checked = !allChecked;
+                }
+                generateCoins();
+            }
+            else if (rank.includes(obj)) {
+                allChecked = true;
+                for (l in lp) {
+                    if (!document.getElementById(`${obj}_${lp[l]}`).checked) {
+                        allChecked = false;
+                    }
+                }
+                for (l in lp) {
+                    document.getElementById(`${obj}_${lp[l]}`).checked = !allChecked;
+                }
+                generateCoins();
+            }
+        }
+
         const inputIds = ['target', 'current', 'coins']
         for (var i in inputIds) {
             document.getElementById(inputIds[i]).onkeyup = function (event) {
@@ -273,6 +453,11 @@
                 }
             }
         }
+        document.getElementById('S_10').checked = true;
+        document.getElementById('S_12').checked = true;
+        document.getElementById('S_15').checked = true;
+        document.getElementById('S_20').checked = true;
+        generateCoins();
     </script>
 </body>
 
