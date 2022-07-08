@@ -107,13 +107,20 @@
                     <td><input type="submit" value="使用" onclick="paste('coins', 'c3');"></td>
                 </tr>
             </table>
+        </div>
+        <p>
+            <a href="javascript:void(0);" onclick="handleSwitch('coinsGenerator', 'coinsGeneratorSwitch')">
+                点击<span id="coinsGeneratorSwitch">展开</span> LLAS 活动点数生成器
+            </a>
+        </p>
+        <div id="coinsGenerator" style="display:none">
             <!-- Coins Generator -->
             <p>LLAS 活动点数生成器</p>
             <p>
                 <input type="submit" value="全选" onclick="handleCoinsGenerator(true);">
                 <input type="submit" value="清空" onclick="handleCoinsGenerator(false);">
             </p>
-            <table id="coinsGenerator" border="1" cellspacing="2" cellpadding="5" style="text-align:center;" onclick="generateCoins();">
+            <table border="1" cellspacing="2" cellpadding="5" style="text-align:center;" onclick="generateCoins();">
                 <tr>
                     <td class="lineTd">
                         <span style="float:left; margin-top:20px">分数评价</span>
@@ -187,94 +194,72 @@
                 </tr>
                 <tr>
                     <td>活动加成卡</td>
-                    <td colspan="7">突破数</td>
+                    <td>可用</td>
+                    <td colspan="6">突破数</td>
                 </tr>
                 <tr>
-                    <td style="text-align:left;">
-                        <input type="checkbox" id="hasEventUR">
-                        <label for="hasEventUR">活动UR</label>
-                    </td>
-                    <td colspan="7">
-                        <input type="radio" id="eventUR_0" name="eventUR" value="0" checked><label for="eventUR_0">0</label>
-                        <input type="radio" id="eventUR_1" name="eventUR" value="1"><label for="eventUR_1">1</label>
-                        <input type="radio" id="eventUR_2" name="eventUR" value="2"><label for="eventUR_2">2</label>
-                        <input type="radio" id="eventUR_3" name="eventUR" value="3"><label for="eventUR_3">3</label>
-                        <input type="radio" id="eventUR_4" name="eventUR" value="4"><label for="eventUR_4">4</label>
-                        <input type="radio" id="eventUR_5" name="eventUR" value="5"><label for="eventUR_5">5</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align:left;">
-                        <input type="checkbox" id="hasEventSR1">
-                        <label for="hasEventSR1">活动SR 1</label>
-                    </td>
-                    <td colspan="7">
-                        <input type="radio" id="eventSR1_0" name="eventSR1" value="0" checked><label for="eventSR1_0">0</label>
-                        <input type="radio" id="eventSR1_1" name="eventSR1" value="1"><label for="eventSR1_1">1</label>
-                        <input type="radio" id="eventSR1_2" name="eventSR1" value="2"><label for="eventSR1_2">2</label>
-                        <input type="radio" id="eventSR1_3" name="eventSR1" value="3"><label for="eventSR1_3">3</label>
-                        <input type="radio" id="eventSR1_4" name="eventSR1" value="4"><label for="eventSR1_4">4</label>
-                        <input type="radio" id="eventSR1_5" name="eventSR1" value="5"><label for="eventSR1_5">5</label>
+                    <td style="text-align:left;"><label for="hasEventUR">活动UR</label></td>
+                    <td><input type="checkbox" id="hasEventUR"></td>
+                    <td><input type="radio" id="eventUR_0" name="eventUR" value="0" checked><label for="eventUR_0">0</label></td>
+                    <td><input type="radio" id="eventUR_1" name="eventUR" value="1"><label for="eventUR_1">1</label></td>
+                    <td><input type="radio" id="eventUR_2" name="eventUR" value="2"><label for="eventUR_2">2</label></td>
+                    <td><input type="radio" id="eventUR_3" name="eventUR" value="3"><label for="eventUR_3">3</label></td>
+                    <td><input type="radio" id="eventUR_4" name="eventUR" value="4"><label for="eventUR_4">4</label></td>
+                    <td><input type="radio" id="eventUR_5" name="eventUR" value="5"><label for="eventUR_5">5</label></td>
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align:left;">
-                        <input type="checkbox" id="hasEventSR2">
-                        <label for="hasEventSR2">活动SR 2</label>
-                    </td>
-                    <td colspan="7">
-                        <input type="radio" id="eventSR2_0" name="eventSR2" value="0" checked><label for="eventSR2_0">0</label>
-                        <input type="radio" id="eventSR2_1" name="eventSR2" value="1"><label for="eventSR2_1">1</label>
-                        <input type="radio" id="eventSR2_2" name="eventSR2" value="2"><label for="eventSR2_2">2</label>
-                        <input type="radio" id="eventSR2_3" name="eventSR2" value="3"><label for="eventSR2_3">3</label>
-                        <input type="radio" id="eventSR2_4" name="eventSR2" value="4"><label for="eventSR2_4">4</label>
-                        <input type="radio" id="eventSR2_5" name="eventSR2" value="5"><label for="eventSR2_5">5</label>
-                    </td>
+                    <td style="text-align:left;"><label for="hasEventSR1">活动SR 1</label></td>
+                    <td><input type="checkbox" id="hasEventSR1"></td>
+                    <td><input type="radio" id="eventSR1_0" name="eventSR1" value="0" checked><label for="eventSR1_0">0</label></td>
+                    <td><input type="radio" id="eventSR1_1" name="eventSR1" value="1"><label for="eventSR1_1">1</label></td>
+                    <td><input type="radio" id="eventSR1_2" name="eventSR1" value="2"><label for="eventSR1_2">2</label></td>
+                    <td><input type="radio" id="eventSR1_3" name="eventSR1" value="3"><label for="eventSR1_3">3</label></td>
+                    <td><input type="radio" id="eventSR1_4" name="eventSR1" value="4"><label for="eventSR1_4">4</label></td>
+                    <td><input type="radio" id="eventSR1_5" name="eventSR1" value="5"><label for="eventSR1_5">5</label></td>
                 </tr>
                 <tr>
-                    <td style="text-align:left;">
-                        <input type="checkbox" id="hasPoolUR1">
-                        <label for="hasPoolUR1">卡池UR 1</label>
-                    </td>
-                    <td colspan="7">
-                        <input type="radio" id="poolUR1_0" name="poolUR1" value="0" checked><label for="poolUR1_0">0</label>
-                        <input type="radio" id="poolUR1_1" name="poolUR1" value="1"><label for="poolUR1_1">1</label>
-                        <input type="radio" id="poolUR1_2" name="poolUR1" value="2"><label for="poolUR1_2">2</label>
-                        <input type="radio" id="poolUR1_3" name="poolUR1" value="3"><label for="poolUR1_3">3</label>
-                        <input type="radio" id="poolUR1_4" name="poolUR1" value="4"><label for="poolUR1_4">4</label>
-                        <input type="radio" id="poolUR1_5" name="poolUR1" value="5"><label for="poolUR1_5">5</label>
-                    </td>
+                    <td style="text-align:left;"><label for="hasEventSR2">活动SR 2</label></td>
+                    <td><input type="checkbox" id="hasEventSR2"></td>
+                    <td><input type="radio" id="eventSR2_0" name="eventSR2" value="0" checked><label for="eventSR2_0">0</label></td>
+                    <td><input type="radio" id="eventSR2_1" name="eventSR2" value="1"><label for="eventSR2_1">1</label></td>
+                    <td><input type="radio" id="eventSR2_2" name="eventSR2" value="2"><label for="eventSR2_2">2</label></td>
+                    <td><input type="radio" id="eventSR2_3" name="eventSR2" value="3"><label for="eventSR2_3">3</label></td>
+                    <td><input type="radio" id="eventSR2_4" name="eventSR2" value="4"><label for="eventSR2_4">4</label></td>
+                    <td><input type="radio" id="eventSR2_5" name="eventSR2" value="5"><label for="eventSR2_5">5</label></td>
                 </tr>
                 <tr>
-                    <td style="text-align:left;">
-                        <input type="checkbox" id="hasPoolUR2">
-                        <label for="hasPoolUR2">卡池UR 2</label>
-                    </td>
-                    <td colspan="7">
-                        <input type="radio" id="poolUR2_0" name="poolUR2" value="0" checked><label for="poolUR2_0">0</label>
-                        <input type="radio" id="poolUR2_1" name="poolUR2" value="1"><label for="poolUR2_1">1</label>
-                        <input type="radio" id="poolUR2_2" name="poolUR2" value="2"><label for="poolUR2_2">2</label>
-                        <input type="radio" id="poolUR2_3" name="poolUR2" value="3"><label for="poolUR2_3">3</label>
-                        <input type="radio" id="poolUR2_4" name="poolUR2" value="4"><label for="poolUR2_4">4</label>
-                        <input type="radio" id="poolUR2_5" name="poolUR2" value="5"><label for="poolUR2_5">5</label>
-                    </td>
+                    <td style="text-align:left;"><label for="hasPoolUR1">卡池UR 1</label></td>
+                    <td><input type="checkbox" id="hasPoolUR1"></td>
+                    <td><input type="radio" id="poolUR1_0" name="poolUR1" value="0" checked><label for="poolUR1_0">0</label></td>
+                    <td><input type="radio" id="poolUR1_1" name="poolUR1" value="1"><label for="poolUR1_1">1</label></td>
+                    <td><input type="radio" id="poolUR1_2" name="poolUR1" value="2"><label for="poolUR1_2">2</label></td>
+                    <td><input type="radio" id="poolUR1_3" name="poolUR1" value="3"><label for="poolUR1_3">3</label></td>
+                    <td><input type="radio" id="poolUR1_4" name="poolUR1" value="4"><label for="poolUR1_4">4</label></td>
+                    <td><input type="radio" id="poolUR1_5" name="poolUR1" value="5"><label for="poolUR1_5">5</label></td>
                 </tr>
                 <tr>
-                    <td style="text-align:left;">
-                        <input type="checkbox" id="hasPoolSR">
-                        <label for="hasPoolSR">卡池SR</label>
-                    </td>
-                    <td colspan="7">
-                        <input type="radio" id="poolSR_0" name="poolSR" value="0" checked><label for="poolSR_0">0</label>
-                        <input type="radio" id="poolSR_1" name="poolSR" value="1"><label for="poolSR_1">1</label>
-                        <input type="radio" id="poolSR_2" name="poolSR" value="2"><label for="poolSR_2">2</label>
-                        <input type="radio" id="poolSR_3" name="poolSR" value="3"><label for="poolSR_3">3</label>
-                        <input type="radio" id="poolSR_4" name="poolSR" value="4"><label for="poolSR_4">4</label>
-                        <input type="radio" id="poolSR_5" name="poolSR" value="5"><label for="poolSR_5">5</label>
-                    </td>
+                    <td style="text-align:left;"><label for="hasPoolUR2">卡池UR 2</label></td>
+                    <td><input type="checkbox" id="hasPoolUR2"></td>
+                    <td><input type="radio" id="poolUR2_0" name="poolUR2" value="0" checked><label for="poolUR2_0">0</label></td>
+                    <td><input type="radio" id="poolUR2_1" name="poolUR2" value="1"><label for="poolUR2_1">1</label></td>
+                    <td><input type="radio" id="poolUR2_2" name="poolUR2" value="2"><label for="poolUR2_2">2</label></td>
+                    <td><input type="radio" id="poolUR2_3" name="poolUR2" value="3"><label for="poolUR2_3">3</label></td>
+                    <td><input type="radio" id="poolUR2_4" name="poolUR2" value="4"><label for="poolUR2_4">4</label></td>
+                    <td><input type="radio" id="poolUR2_5" name="poolUR2" value="5"><label for="poolUR2_5">5</label></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;"><label for="hasPoolSR">卡池SR</label></td>
+                    <td><input type="checkbox" id="hasPoolSR"></td>
+                    <td><input type="radio" id="poolSR_0" name="poolSR" value="0" checked><label for="poolSR_0">0</label></td>
+                    <td><input type="radio" id="poolSR_1" name="poolSR" value="1"><label for="poolSR_1">1</label></td>
+                    <td><input type="radio" id="poolSR_2" name="poolSR" value="2"><label for="poolSR_2">2</label></td>
+                    <td><input type="radio" id="poolSR_3" name="poolSR" value="3"><label for="poolSR_3">3</label></td>
+                    <td><input type="radio" id="poolSR_4" name="poolSR" value="4"><label for="poolSR_4">4</label></td>
+                    <td><input type="radio" id="poolSR_5" name="poolSR" value="5"><label for="poolSR_5">5</label></td>
                 </tr>
             </table>
-            <p>当前加成： <span id="currentBonuses"></span></p>
+            <p>当前可用加成： <span id="currentBonus"></span></p>
             <p>生成分数选项： <span id="generated"></span></p>
             <p>
                 <a href="javascript:void(0);" onclick="handleSwitch('generatedMap', 'generatedMapSwitch')">
@@ -316,6 +301,7 @@
     </div>
 
     <script>
+        var generatedMap = [];
         const rank = ['S', 'A', 'B', 'C', 'D'];
         const lp = [9, 10, 12, 13, 15, 16, 20];
         const llasEventMultiplier = {
@@ -365,7 +351,7 @@
                 20: 40.75,
             }
         }
-        const llasEventBonuses = {
+        const llasEventBonus = {
             'eventUR': [15, 20, 24, 27, 29, 30],
             'eventSR1': [7, 12, 16, 19, 21, 22],
             'eventSR2': [7, 12, 16, 19, 21, 22],
@@ -416,7 +402,7 @@
             }
             // 计算
             var result = {};
-            var resultItems = [];
+            var resultItems = [], resultMap = [];
             var plans = new Array(target + 1);
             plans[0] = [target + 1, 0];
             for (var i = 1; i <= target; i++) {
@@ -468,12 +454,23 @@
                     resultItems.push(
                         `<span onclick="charge(${k});"><span class="coin" id="coin${k}">${k}</span> * <span class="count" id="count${k}">${result[k]}</span></span>`
                     );
+                    for (var g of generatedMap) {
+                        if (k == g[0]) {
+                            resultMap.push(g);
+                        }
+                    }
                 }
                 document.getElementById('result').innerHTML = [
-                    '分数差： <span id="resultTarget0">' + target + '</span>',
-                    '分数选项： ' + coins.join(', '),
+                    `分数差： <span id="resultTarget0">${target}</span>`,
+                    `分数选项： ${coins.join(', ')}`,
                     `<span id="resultTarget1">${target}</span> 最少可由以下 <span id="resultCount">${plans[target][0]}</span> 项相加得到：`,
-                    '<h3><span class="target" id="resultTarget2">' + target + '</span> = ' + resultItems.join(' + ') + '</h3>',
+                    `<h3><span class="target" id="resultTarget2">${target}</span> = ${resultItems.join(' + ')}</h3>`,
+                    resultMap.length ? [
+                        '<table border="1"><thead><tr><th>点数</th><th>评价</th><th>LP</th><th>加成</th></tr></thead>',
+                        resultMap.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}%</td></tr>`).join(''),
+                        '</table>',
+                    ].join('') : '',
+                    // resultMap.map(r => `${r[0]} = ${r[1]}${r[2]}+${r[3]}%`).join('<br>'),
                     `安全线提醒：在当前分数选项组合 (${coins.join(', ')}) 条件下，分数差在 [<b>${safeLine}</b>, ${target}] 范围内必定有解`,
                     '计算耗时 ' + (new Date() - t0) + 'ms'
                 ].join('<br>');
@@ -523,20 +520,19 @@
             }
         }
 
-        function generateCoins(index) {
+        function generateCoins() {
             var i, l, r, b, bl, has;
-            var bonus = [], bonusPicked = [], bonusCombined = [];
-            var generated = [], generatedMap = [];
+            var bonus = [], bonusPicked = [], bonusCombined = [], generated = [];
             // push bonus
             if (document.getElementById('noBonus').checked) {
                 bonus.push(0);
             }
-            for (b in llasEventBonuses) {
+            for (b in llasEventBonus) {
                 has = `has${b.substr(0, 1).toUpperCase()}${b.substr(1)}`
                 if (document.getElementById(has).checked) {
                     for (bl of document.getElementsByName(b)) {
                         if (bl.checked) {
-                            bonus.push(llasEventBonuses[b][bl.value]);
+                            bonus.push(llasEventBonus[b][bl.value]);
                             break;
                         }
                     }
@@ -548,7 +544,8 @@
             }
             bonus = Object.assign([], Array.from(new Set(Object.assign(bonus, bonusCombined))));
             bonus.sort((a, b) => {return a - b});
-            document.getElementById('currentBonuses').innerHTML = bonus.join(' ');
+            document.getElementById('currentBonus').innerHTML = bonus.map(b => `${b}%`).join(' ');
+            generatedMap = []
             for (r of rank) {
                 for (l of lp) {
                     if (document.getElementById(`${r}_${l}`).checked) {
