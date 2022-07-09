@@ -460,6 +460,8 @@
                         }
                     }
                 }
+                resultItems.reverse();
+                resultMap.reverse();
                 document.getElementById('result').innerHTML = [
                     `分数差： <span id="resultTarget0">${target}</span>`,
                     `分数选项： ${coins.join(', ')}`,
