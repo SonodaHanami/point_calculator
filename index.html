@@ -77,36 +77,37 @@
         <div id="default" style="display:none">
             <table border="1" cellspacing="2" cellpadding="8">
                 <tr>
-                    <td rowspan="4">目标分数</td>
-                    <td id="t1">11020301</td>
+                    <td rowspan="2">目标分数</td>
+                    <td id="t1">1919810</td>
                     <td><input type="submit" value="使用" onclick="paste('target', 't1');"></td>
                 </tr>
                 <tr>
-                    <td id="t2">5200301</td>
+                    <td id="t2">114514</td>
                     <td><input type="submit" value="使用" onclick="paste('target', 't2');"></td>
                 </tr>
                 <tr>
-                    <td id="t3">1314301</td>
-                    <td><input type="submit" value="使用" onclick="paste('target', 't3');"></td>
-                </tr>
-                <tr>
-                    <td id="t4">520301</td>
-                    <td><input type="submit" value="使用" onclick="paste('target', 't4');"></td>
-                </tr>
-                <tr>
-                    <td rowspan="3">分数选项</td>
-                    <td>SIF SM: <span id="c1">119 59 34 14</span></td>
+                    <td rowspan="4">分数选项</td>
+                    <td>SIF SM：<span id="c1">119 59 34 14</span></td>
                     <td><input type="submit" value="使用" onclick="paste('coins', 'c1');"></td>
                 </tr>
                 <tr>
-                    <td>SIF 协力: <span id="c2">100 51 29 13</span></td>
+                    <td>SIF 协力：<span id="c2">100 51 29 13</span></td>
                     <td><input type="submit" value="使用" onclick="paste('coins', 'c2');"></td>
                 </tr>
                 <tr>
-                    <td>LLAS: <span id="c3">875 600</span></td>
+                    <td>LLAS：<span id="c3">875 600</span></td>
                     <td><input type="submit" value="使用" onclick="paste('coins', 'c3');"></td>
                 </tr>
+                <tr>
+                    <td>测试：<span id="c4">114 514</span></td>
+                    <td><input type="submit" value="使用" onclick="paste('coins', 'c4');"></td>
+                </tr>
             </table>
+            <p>还是看看远方的 <b>LoveLive! AS Wiki</b> 吧！
+                <a href="https://wiki.loveliv.es/%E6%B4%BB%E5%8A%A8pt%E9%80%9F%E6%9F%A5%E8%A1%A8" target="_blank">
+                    https://wiki.loveliv.es/活动pt速查表
+                </a>
+            </p>
         </div>
         <p>
             <a href="javascript:void(0);" onclick="handleSwitch('coinsGenerator', 'coinsGeneratorSwitch')">
@@ -115,12 +116,16 @@
         </p>
         <div id="coinsGenerator" style="display:none">
             <!-- Coins Generator -->
-            <p>LLAS 活动点数生成器</p>
-            <p>
-                <input type="submit" value="全选" onclick="handleCoinsGenerator(true);">
-                <input type="submit" value="清空" onclick="handleCoinsGenerator(false);">
-            </p>
             <table border="1" cellspacing="2" cellpadding="5" style="text-align:center;" onclick="generateCoins();">
+                <tr>
+                    <th colspan="9">LLAS 活动点数生成器</th></tr>
+                <tr>
+                    <td rowspan="7">Live</td>
+                    <td colspan="8" style="text-align:left;">
+                        <input type="submit" value="全选" onclick="handleCoinsGenerator(true);">
+                        <input type="submit" value="清空" onclick="handleCoinsGenerator(false);">
+                    </td>
+                </tr>
                 <tr>
                     <td class="lineTd">
                         <span style="float:left; margin-top:20px">分数评价</span>
@@ -184,9 +189,9 @@
                     <td><input type="checkbox" id="D_16"></td>
                     <td><input type="checkbox" id="D_20"></td>
                 </tr>
-                <tr><td colspan="8"></td></tr>
-                <tr><td colspan="8">加成</td></tr>
+                <tr><td colspan="9"></td></tr>
                 <tr>
+                    <td rowspan="8">加成</td>
                     <td colspan="8" style="text-align:left;">
                         <input type="checkbox" id="noBonus" checked>
                         <label for="noBonus">无加成</label>
@@ -258,6 +263,11 @@
                     <td><input type="radio" id="poolSR_4" name="poolSR" value="4"><label for="poolSR_4">4</label></td>
                     <td><input type="radio" id="poolSR_5" name="poolSR" value="5"><label for="poolSR_5">5</label></td>
                 </tr>
+                <tr>
+                    <td colspan="9">
+                        <input type="submit" class="generatorButton" value="使用" onclick="paste('coins', 'generated');">
+                    </td>
+                </tr>
             </table>
             <p>当前可用加成： <span id="currentBonus"></span></p>
             <p>生成分数选项： <span id="generated"></span></p>
@@ -268,11 +278,6 @@
             </p>
             <div id="generatedMap" style="display:none"></div>
             <p><input type="submit" value="使用" onclick="paste('coins', 'generated');"></p>
-            <p>还是看看远方的 <b>LoveLive! AS Wiki</b> 吧！
-                <a href="https://wiki.loveliv.es/%E6%B4%BB%E5%8A%A8pt%E9%80%9F%E6%9F%A5%E8%A1%A8" target="_blank">
-                    https://wiki.loveliv.es/活动pt速查表
-                </a>
-            </p>
         </div>
         <hr />
         <table border="0" cellspacing="2" cellpadding="8">
