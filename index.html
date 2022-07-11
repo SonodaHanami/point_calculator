@@ -606,6 +606,60 @@
             }
         }
 
+        function saveLocalStorage() {
+            if (!window.localStorage) {
+                console.error("浏览器不支持localstorage");
+            }
+            else {
+                var k, storage = window.localStorage;
+                var data = {'checked': [], 'unchecked': [], 'pair': {}};
+                for (k of document.getElementsByTagName('input')) {
+                    if (k.id) {
+                        if (k.type == 'number' || k.type == 'text') {
+                            data['pair'][k.id] = k.value;
+                        }
+                        if (k.type == 'checkbox' || k.type == 'radio') {
+                            if (k.checked == true) {
+                                data['checked'].push(k.id);
+                            }
+                            if (k.checked == false) {
+                                data['unchecked'].push(k.id);
+                            }
+                        }
+                    }
+                }
+                storage['data'] = JSON.stringify(data);
+            }
+        }
+
+        function loadLocalStorage() {
+            if (!window.localStorage) {
+                console.error("浏览器不支持localstorage");
+            }
+            else {
+                var k, storage = window.localStorage;
+                if (storage['data']) {
+                    const data = JSON.parse(storage['data']);
+                    for (k of data['checked']) {
+                        document.getElementById(k).checked = true;
+                    }
+                    for (k of data['unchecked']) {
+                        document.getElementById(k).checked = false;
+                    }
+                    for (k in data['pair']) {
+                        document.getElementById(k).value = data['pair'][k];
+                    }
+                }
+                else {
+                    // 初始化
+                    document.getElementById('S_10').checked = true;
+                    document.getElementById('S_12').checked = true;
+                    document.getElementById('S_15').checked = true;
+                    document.getElementById('S_20').checked = true;
+                }
+            }
+        }
+
         // 初始化
         const inputIds = ['target', 'current', 'coins']
         for (var i in inputIds) {
@@ -615,10 +669,8 @@
                 }
             }
         }
-        document.getElementById('S_10').checked = true;
-        document.getElementById('S_12').checked = true;
-        document.getElementById('S_15').checked = true;
-        document.getElementById('S_20').checked = true;
+        document.onclick = () => saveLocalStorage();
+        loadLocalStorage();
         generateCoins();
     </script>
 </body>
