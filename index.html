@@ -627,7 +627,7 @@
             }
             else {
                 var k, storage = window.localStorage;
-                var data = {'checked': [], 'unchecked': [], 'pair': {}};
+                var data = {'checked': [], 'pair': {}};
                 for (k of document.getElementsByTagName('input')) {
                     if (k.id) {
                         if (k.type == 'number' || k.type == 'text') {
@@ -636,9 +636,6 @@
                         if (k.type == 'checkbox' || k.type == 'radio') {
                             if (k.checked == true) {
                                 data['checked'].push(k.id);
-                            }
-                            if (k.checked == false) {
-                                data['unchecked'].push(k.id);
                             }
                         }
                     }
@@ -655,11 +652,11 @@
                 var k, storage = window.localStorage;
                 if (storage['data']) {
                     const data = JSON.parse(storage['data']);
+                    for (k of document.getElementsByTagName('input')) {
+                        k.checked = false;
+                    }
                     for (k of data['checked']) {
                         document.getElementById(k).checked = true;
-                    }
-                    for (k of data['unchecked']) {
-                        document.getElementById(k).checked = false;
                     }
                     for (k in data['pair']) {
                         document.getElementById(k).value = data['pair'][k];
