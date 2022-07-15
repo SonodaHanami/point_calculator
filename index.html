@@ -191,13 +191,7 @@
                 </tr>
                 <tr><td colspan="9"></td></tr>
                 <tr>
-                    <td rowspan="8">加成</td>
-                    <td colspan="8" style="text-align:left;">
-                        <input type="checkbox" id="noBonus" checked>
-                        <label for="noBonus">无加成</label>
-                    </td>
-                </tr>
-                <tr>
+                    <td rowspan="9">加成</td>
                     <td>活动加成卡</td>
                     <td>可用</td>
                     <td colspan="6">突破数</td>
@@ -262,6 +256,19 @@
                     <td><input type="radio" id="poolSR_3" name="poolSR" value="3"><label for="poolSR_3">3</label></td>
                     <td><input type="radio" id="poolSR_4" name="poolSR" value="4"><label for="poolSR_4">4</label></td>
                     <td><input type="radio" id="poolSR_5" name="poolSR" value="5"><label for="poolSR_5">5</label></td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align:left;">
+                        <input type="checkbox" id="bonusZero" checked>
+                        <label for="bonusZero">无加成</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align:left;">
+                        <input type="checkbox" id="bonusCustom">
+                        <label for="bonusCustom">自定义：</label>
+                        <input type="number" id="bonusCustomValue" min="1" style="width:5em">%
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="9">
@@ -373,14 +380,14 @@
             current = document.getElementById('current');
             coins = document.getElementById('coins');
             if (target.value) {
-                target = parseInt(target.value, 10);
+                target = parseInt(target.value);
             }
             else {
                 document.getElementById('result').innerHTML = '请输入目标分数';
                 return;
             }
             if (current.value) {
-                current = parseInt(document.getElementById('current').value, 10);
+                current = parseInt(document.getElementById('current').value);
             }
             else {
                 document.getElementById('result').innerHTML = '请输入当前分数';
@@ -500,11 +507,11 @@
         }
 
         function charge(idx) {
-            if (parseInt(document.getElementById(`count${idx}`).innerHTML, 10) <= 0) {
+            if (parseInt(document.getElementById(`count${idx}`).innerHTML) <= 0) {
                 return
             }
             const coinValue = parseInt(document.getElementById(`coin${idx}`).innerHTML, 10);
-            document.getElementById("current").value = parseInt(document.getElementById("current").value, 10) + coinValue;
+            document.getElementById("current").value = parseInt(document.getElementById("current").value) + coinValue;
             document.getElementById("resultTarget0").innerHTML -= coinValue;
             document.getElementById("resultCount").innerHTML--;
             document.getElementById("resultTarget1").innerHTML -= coinValue;
@@ -531,8 +538,11 @@
             var i, l, r, b, bl, has;
             var bonus = [], bonusPicked = [], bonusCombined = [], generated = [];
             // push bonus
-            if (document.getElementById('noBonus').checked) {
+            if (document.getElementById('bonusZero').checked) {
                 bonus.push(0);
+            }
+            if (document.getElementById('bonusCustom').checked && document.getElementById('bonusCustomValue').value > 0) {
+                bonus.push(parseInt(document.getElementById('bonusCustomValue').value));
             }
             for (b in llasEventBonus) {
                 has = `has${b.substr(0, 1).toUpperCase()}${b.substr(1)}`
