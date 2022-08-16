@@ -549,7 +549,7 @@
                 if (document.getElementById(has).checked) {
                     for (bl of document.getElementsByName(b)) {
                         if (bl.checked) {
-                            bonus.push(llasEventBonus[b][bl.value]);
+                            bonus.push(llasEventBonus[b][bl.value] + 10);
                             break;
                         }
                     }
